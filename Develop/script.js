@@ -14,12 +14,14 @@ function generatePassword(){
   }
   if (critVar === 'C' || critVar === 'B'){
     var typesList = getTypesList();
+  } else {
+    var typesList = getRandomTypesList();
   }
   if (typesList == 'false,false,false,false'){
     typesList = getRandomTypesList();
   }
   var passwordString = findPassword(lengthVar,typesList);
-  return "Password will go here";
+  return passwordString;
 }
 
 function getBool(response){
@@ -108,6 +110,13 @@ function getRandomTypesList(){
 
 function findPassword(lengthVar,typesList){
   var masterString = getMasterString(typesList);
+  var masterStringLength = masterString.length;
+  var passwordString = "";
+  for (var i=0;i<lengthVar;i++){
+    var newCharIndex = Math.floor(Math.random()*masterStringLength);
+    var newChar = masterString[newCharIndex];
+    passwordString += newChar;
+  }
   return passwordString;
 }
 
