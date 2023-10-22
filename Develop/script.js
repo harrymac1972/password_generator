@@ -1,25 +1,11 @@
+
+// ======== ASSIGNMENT CODE STARTS ========
+
 // Assignment code here
 function generatePassword(){
-  while (true) {
-    var critVar = window.prompt("Please select Criteria:\n    'L' - Length\n    'C' - Character Types\n    'B' - Both");
-    critVar = critVar.toUpperCase();
-    if (critVar === 'L' || critVar === 'C' || critVar === 'B'){
-      break;
-    }
-  }
-  if (critVar === 'L' || critVar === 'B'){
-    var lengthVar = getLength()
-  } else {
-    var lengthVar = 16;
-  }
-  if (critVar === 'C' || critVar === 'B'){
-    var typesList = getTypesList();
-  } else {
-    var typesList = getRandomTypesList();
-  }
-  if (typesList == 'false,false,false,false'){
-    typesList = getRandomTypesList();
-  }
+  var criteriaVar = getCriteria();
+  var lengthVar = getCriteriaLength(criteriaVar);
+  var typesList = getCriteriaTypes(criteriaVar);
   var passwordString = findPassword(lengthVar,typesList);
   return passwordString;
 }
@@ -32,7 +18,41 @@ function getBool(response){
   }
 }
 
-function getLength(){
+function getCriteria(){
+  var msgVar = "Please select Criteria:\n    'L' - Length"
+  msgVar += "\n    'C' - Character Types\n    'B' - Both"
+  while (true) {
+    var criteriaVar = window.prompt(msgVar);
+    criteriaVar = criteriaVar.toUpperCase();
+    if (criteriaVar === 'L' || criteriaVar === 'C' || criteriaVar === 'B'){
+      break;
+    }
+  }
+  return criteriaVar;
+}
+
+function getCriteriaLength(criteriaVar){  
+  if (criteriaVar === 'L' || criteriaVar === 'B'){
+    var lengthVar = getLengthUser();
+  } else {
+    var lengthVar = 16;
+  }
+  return lengthVar;
+}
+
+function getCriteriaTypes(criteriaVar){
+  if (criteriaVar === 'C' || criteriaVar === 'B'){
+    var typesList = getTypesList();
+  } else {
+    var typesList = getRandomTypesList();
+  }
+  if (typesList == 'false,false,false,false'){
+    typesList = getRandomTypesList();
+  }
+  return typesList;
+}
+
+function getLengthUser(){
   while (true){
     var lengthVar = window.prompt("Please type Password Length (8-128)");
     // string coerced into number for comparison
@@ -58,7 +78,6 @@ function getMasterString(typesList){
   if (typesList[3]){
     masterString += '!@#$%^&*(),.<>';
   }
-  window.alert(`${masterString}`)
   return masterString;
 }
 
@@ -67,27 +86,33 @@ function getTypesList(){
   var upperVar = window.prompt("Include Upper Case?");
   var numVar = window.prompt("Include Numbers?");
   var specialVar = window.prompt("Include Special Characters?");
+  // Note: wanted this cleaner but empty strings not passing as arguments
   var typesList = [];
+  // Lower Characters
   if (lowerVar.length == 0){
     typesList.push(false);
   } else {
     typesList.push(getBool(lowerVar));
   }
+  // Upper Characters
   if (upperVar.length == 0){
     typesList.push(false);
   } else {
     typesList.push(getBool(upperVar));
   }
+  // Numerical Characters
   if (numVar.length == 0){
     typesList.push(false);
   } else {
     typesList.push(getBool(numVar));
   }
+  // Special Characters
   if (specialVar.length == 0){
     typesList.push(false);
   } else {
     typesList.push(getBool(specialVar));
   }
+
   return typesList;
 }
 
@@ -95,15 +120,14 @@ function getRandomTypesList(){
   var trueUsed = 0;
   while (trueUsed == 0){
     var typesList = [];
-    for (var i=0;i<4;i++){
+    for (var i=0; i<4; i++){
       if (Math.floor(Math.random()*2)-1){
         typesList.push(true);
-        trueUsed = 1;
+        trueUsed = 1; // ensures at least one Type employed
       } else {
         typesList.push(false);
       }
     }
-    window.alert(`==${typesList}==`);
   }
   return typesList;
 }
@@ -112,13 +136,15 @@ function findPassword(lengthVar,typesList){
   var masterString = getMasterString(typesList);
   var masterStringLength = masterString.length;
   var passwordString = "";
-  for (var i=0;i<lengthVar;i++){
+  for (var i=0; i<lengthVar; i++){
     var newCharIndex = Math.floor(Math.random()*masterStringLength);
     var newChar = masterString[newCharIndex];
     passwordString += newChar;
   }
   return passwordString;
 }
+
+// ======== ASSIGNMENT CODE ENDS ========
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
