@@ -13,11 +13,12 @@ if (critVar === 'L' || critVar === 'B'){
   var lengthVar = 16;
 }
 if (critVar === 'C' || critVar === 'B'){
-  var typeVar = getType()
-} else {
-  var typeVar = 16;
+  var typesList = getTypesList();
 }
-return critVar;
+if (typesList == 'false,false,false,false'){
+  typesList = getRandomTypesList();
+}
+return "Password will go here";
 }
 
 function getLength(){
@@ -31,8 +32,58 @@ function getLength(){
   return lengthVar;
 }
 
-function getType(){
-  
+function getTypesList(){
+  var lowerVar = window.prompt("Include Lower Case?");
+  var upperVar = window.prompt("Include Upper Case?");
+  var numVar = window.prompt("Include Numbers?");
+  var specialVar = window.prompt("Include Special Characters?");
+  var typesList = [];
+  if (lowerVar.length == 0){
+    typesList.push(false);
+  } else {
+    typesList.push(getBool(lowerVar));
+  }
+  if (upperVar.length == 0){
+    typesList.push(false);
+  } else {
+    typesList.push(getBool(upperVar));
+  }
+  if (numVar.length == 0){
+    typesList.push(false);
+  } else {
+    typesList.push(getBool(numVar));
+  }
+  if (specialVar.length == 0){
+    typesList.push(false);
+  } else {
+    typesList.push(getBool(specialVar));
+  }
+  return typesList;
+}
+
+function getBool(response){
+  if (response[0].toUpperCase() === 'Y'){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function getRandomTypesList(){
+  var trueUsed = 0;
+  while (trueUsed == 0){
+    var typesList = [];
+    for (var i=0;i<4;i++){
+      if (Math.floor(Math.random()*2)-1){
+        typesList.push(true);
+        trueUsed = 1;
+      } else {
+        typesList.push(false);
+      }
+    }
+    window.alert(`==${typesList}==`);
+  }
+  return typesList;
 }
 
 // Get references to the #generate element
