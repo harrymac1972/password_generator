@@ -1,5 +1,14 @@
 // Assignment code here
-
+function generatePassword(){
+  while (true) {
+    var critVar = window.prompt("Please select Criteria:\n    'L' - Length\n    'C' - Character Types\n    'B' - Both");
+    critVar = critVar.toUpperCase();
+    if (critVar === 'L' || critVar === 'C' || critVar === 'B'){
+      break
+    }
+  }
+return critVar;
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
