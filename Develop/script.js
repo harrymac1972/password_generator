@@ -7,18 +7,27 @@ function generatePassword(){
       break;
     }
   }
-if (critVar === 'L' || critVar === 'B'){
-  var lengthVar = getLength()
-} else {
-  var lengthVar = 16;
+  if (critVar === 'L' || critVar === 'B'){
+    var lengthVar = getLength()
+  } else {
+    var lengthVar = 16;
+  }
+  if (critVar === 'C' || critVar === 'B'){
+    var typesList = getTypesList();
+  }
+  if (typesList == 'false,false,false,false'){
+    typesList = getRandomTypesList();
+  }
+  var passwordString = findPassword(lengthVar,typesList);
+  return "Password will go here";
 }
-if (critVar === 'C' || critVar === 'B'){
-  var typesList = getTypesList();
-}
-if (typesList == 'false,false,false,false'){
-  typesList = getRandomTypesList();
-}
-return "Password will go here";
+
+function getBool(response){
+  if (response[0].toUpperCase() === 'Y'){
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function getLength(){
@@ -30,6 +39,25 @@ function getLength(){
     }
   }
   return lengthVar;
+}
+
+function getMasterString(typesList){
+  var alphaString = 'abcdefghijklmnopqrstuvwxyz';
+  var masterString = '';
+  if (typesList[0]){
+    masterString += alphaString;
+  }
+  if (typesList[1]){
+    masterString += alphaString.toUpperCase();
+  }
+  if (typesList[2]){
+    masterString += '1234567890';
+  }
+  if (typesList[3]){
+    masterString += '!@#$%^&*(),.<>';
+  }
+  window.alert(`${masterString}`)
+  return masterString;
 }
 
 function getTypesList(){
@@ -61,14 +89,6 @@ function getTypesList(){
   return typesList;
 }
 
-function getBool(response){
-  if (response[0].toUpperCase() === 'Y'){
-    return true;
-  } else {
-    return false;
-  }
-}
-
 function getRandomTypesList(){
   var trueUsed = 0;
   while (trueUsed == 0){
@@ -84,6 +104,11 @@ function getRandomTypesList(){
     window.alert(`==${typesList}==`);
   }
   return typesList;
+}
+
+function findPassword(lengthVar,typesList){
+  var masterString = getMasterString(typesList);
+  return passwordString;
 }
 
 // Get references to the #generate element
