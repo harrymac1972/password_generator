@@ -44,10 +44,10 @@ function getCriteriaTypes(criteriaVar){
   if (criteriaVar === 'C' || criteriaVar === 'B'){
     var typesList = getTypesList();
   } else {
-    var typesList = getRandomTypesList();
+    var typesList = getTypesListRandom();
   }
   if (typesList == 'false,false,false,false'){
-    typesList = getRandomTypesList();
+    typesList = getTypesListRandom();
   }
   return typesList;
 }
@@ -79,6 +79,11 @@ function getMasterString(typesList){
     masterString += '!@#$%^&*(),.<>';
   }
   return masterString;
+}
+
+function getRandomNumber(maxNum){
+  var randomNumber = Math.floor(Math.random()*maxNum);
+  return randomNumber;
 }
 
 function getTypesList(){
@@ -116,12 +121,12 @@ function getTypesList(){
   return typesList;
 }
 
-function getRandomTypesList(){
+function getTypesListRandom(){
   var trueUsed = 0;
   while (trueUsed == 0){
     var typesList = [];
     for (var i=0; i<4; i++){
-      if (Math.floor(Math.random()*2)-1){
+      if (getRandomNumber(2)-1){
         typesList.push(true);
         trueUsed = 1; // ensures at least one Type employed
       } else {
@@ -137,7 +142,7 @@ function findPassword(lengthVar,typesList){
   var masterStringLength = masterString.length;
   var passwordString = "";
   for (var i=0; i<lengthVar; i++){
-    var newCharIndex = Math.floor(Math.random()*masterStringLength);
+    var newCharIndex = getRandomNumber(masterStringLength);
     var newChar = masterString[newCharIndex];
     passwordString += newChar;
   }
