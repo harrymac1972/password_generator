@@ -4,10 +4,35 @@ function generatePassword(){
     var critVar = window.prompt("Please select Criteria:\n    'L' - Length\n    'C' - Character Types\n    'B' - Both");
     critVar = critVar.toUpperCase();
     if (critVar === 'L' || critVar === 'C' || critVar === 'B'){
-      break
+      break;
     }
   }
+if (critVar === 'L' || critVar === 'B'){
+  var lengthVar = getLength()
+} else {
+  var lengthVar = 16;
+}
+if (critVar === 'C' || critVar === 'B'){
+  var typeVar = getType()
+} else {
+  var typeVar = 16;
+}
 return critVar;
+}
+
+function getLength(){
+  while (true){
+    var lengthVar = window.prompt("Please type Password Length (8-128)");
+    // string coerced into number for comparison
+    if (lengthVar >= 8 && lengthVar <= 128){
+      break;
+    }
+  }
+  return lengthVar;
+}
+
+function getType(){
+  
 }
 
 // Get references to the #generate element
