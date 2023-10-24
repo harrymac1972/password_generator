@@ -28,7 +28,7 @@ once in your folder of choice
 
 ## Usage
 
-![top of home page](./Develop/assets/imgs/screenshot-finished-homepage.png)
+![top of home page](./assets/imgs/screenshot-finished-homepage.png)
 
 ## Credits
 
