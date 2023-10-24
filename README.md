@@ -22,7 +22,9 @@ I made a work around for this - as noted in the commented code - but will invest
 
 Repository location:        https://github.com/harrymac1972/password_generator.git
 
-In Git Bash please type:    git clone git@github.com:harrymac1972/password_generator.git    once in your folder of choice
+In Git Bash please type:
+    <strong>git clone git@github.com:harrymac1972/password_generator.git</strong>
+once in your folder of choice
 
 ## Usage
 
